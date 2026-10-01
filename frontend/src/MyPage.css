@@ -1,0 +1,156 @@
+.result-card {
+    border: 2px solid #9b6cff;
+    padding: 20px;
+    margin: 10px;
+    width: 250px;
+    border-radius: 4px;
+    box-shadow: 4px 4px 0 #b88acb;
+    position: relative;
+    transition: 0.2s;
+    height: 230px;
+}
+
+.result-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 0 #b88acb;
+}
+
+.result-card p {
+    margin: 12px 0;
+}
+
+.results-container {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.accuracy {
+    color: #b45b91;
+    font-size: 20px;
+}
+
+.quiz-mode {
+    color: #7b61a8;
+    border: 2px solid #9b6cff;
+    padding: 2px 8px;
+    display: inline-block;
+    font-size: 20px;
+    transform: translateX(-3px);
+}
+
+.score {
+    color: #8b4fa3;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.category {
+    color: #7658a8;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.pixel-deco {
+    position: absolute;
+    top: 5px;
+    left: 8px;
+    color: #9b6cff;
+    font-size: 16px;
+    z-index: 10;
+}
+
+.pixel-deco-right {
+    position: absolute;
+    right: 8px;
+    bottom: 5px;
+    color: #9b6cff;
+    font-size: 16px;
+    z-index: 10;
+}
+
+.new-badge {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    color: #b45b91;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.mypage-title {
+    text-align: center;
+    color: #7b61a8;
+    font-size: 32px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.results-title {
+    text-align: center;
+    color: #8b4fa3;
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+.summary-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.summary-container p {
+    border: 2px solid #9b6cff;
+    padding: 15px 25px;
+    margin: 0;
+    min-width: 150px;
+    text-align: center;
+    box-shadow: 4px 4px 0 #b88acb;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.summary-container strong {
+    display: block;
+    font-size: 28px;
+    color: #8b4fa3;
+    margin-top: 8px;
+}
+
+.summary-title {
+    text-align: center;
+    color: #8b4fa3;
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+.best-scores-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.best-score-card {
+    border: 2px solid #9b6cff;
+    padding: 15px 25px;
+    min-width: 100px;
+    box-shadow: 4px 4px 0 #b88acb;
+    text-align: center;
+}
+
+.best-score-card strong {
+    display: block;
+    font-size: 28px;
+    color: #8b4fa3;
+    margin-top: 8px;
+}
+
+.best-score-card span {
+    font-weight: bold;
+    font-size: 20px;
+    color: #7658a8;
+    text-shadow: 0.5px 0 #7658a8;
+}

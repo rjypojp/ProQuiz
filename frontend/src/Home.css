@@ -1,0 +1,39 @@
+.home-page {
+    height: 100vh;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #e8ddf2;
+}
+
+.home-page img {
+    width: 750px;
+}
+
+.home-page a {
+    display: block;
+    margin: 20px 0;
+    color: #7b61a8;
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+    position: relative;
+    top: -35px;
+}
+
+.home-page a:hover {
+    color: #d66ac5;
+}
+
+.proquiz-logo.spinning {
+    animation: logo-spin 1s linear;
+}
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
