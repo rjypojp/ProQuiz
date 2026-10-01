@@ -39,15 +39,15 @@ Python・PHP・SQL・Git・Dockerの5カテゴリに対応しており、
 
 ### クイズ開始画面
 
-![クイズ開始画面](screenshots/home.png)
+![クイズ開始画面](Screenshots/home.png)
 
 ### クイズ画面
 
-![クイズ画面](screenshots/quiz.png)
+![クイズ画面](Screenshots/quiz.png)
 
 ### マイページ
 
-![マイページ](screenshots/mypage.png)
+![マイページ](Screenshots/mypage.png)
 
 ## 工夫した点
 
