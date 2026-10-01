@@ -14,6 +14,7 @@ function MyPage({ user, setUser }) {
 
     const modeMap = {
         normal: '通常クイズ',
+        random: 'ランダムクイズ',
         comprehensive: '総合テスト'
     }
     
@@ -42,12 +43,19 @@ function MyPage({ user, setUser }) {
     }
     
     useEffect(() => {
+        console.log('MyPage useEffect 動いた')
+
         const getQuizResults = async () => {
             const response = await fetch('http://localhost:8000/api/quiz-results/my', {
                 credentials: 'include',
             })
 
             const data = await response.json()
+            console.log(data.map(result => ({
+                id: result.id,
+                category_id: result.category_id,
+                mode: result.mode,
+            })))
             setAllQuizResults(data)
 
             setQuizResults(
@@ -75,7 +83,7 @@ function MyPage({ user, setUser }) {
     const bestScores = {}
 
     allQuizResults.forEach((result) => {
-        if (result.mode !== 'normal') return
+        if (result.mode === 'comprehensive') return
 
         const accuracy = Math.round(
             result.correct_count / result.total_questions * 100
