@@ -21,6 +21,8 @@ function MyPage({ user, setUser }) {
     const [quizResults, setQuizResults] = useState([])
     const [allQuizResults, setAllQuizResults] = useState([])
     const handleLogout = async () => {
+        console.log('ログアウトボタン押された')
+
         const xsrfToken = decodeURIComponent(
             document.cookie
                 .split('; ')
@@ -43,11 +45,15 @@ function MyPage({ user, setUser }) {
     }
     
     useEffect(() => {
-        console.log('MyPage useEffect 動いた')
 
         const getQuizResults = async () => {
-            const response = await fetch('http://localhost:8000/api/quiz-results/my', {
+            const response = await fetch('http://localhost:8000/logout', {
+                method: 'POST',
+                headers: {
+                    'X-XSRF-TOKEN': xsrfToken,
+                },
                 credentials: 'include',
+                redirect:'manual',
             })
 
             const data = await response.json()
@@ -105,7 +111,12 @@ function MyPage({ user, setUser }) {
             <div className="quiz-navigation">
                 <Link to="/">トップページ</Link>
                 <Link to="/quiz">クイズ</Link>
-                <button onClick={handleLogout}>ログアウト</button>
+                
+                {user ? (
+                    <button onClick={handleLogout}>ログアウト</button>
+                ) : (
+                    <Link to="/login">ログイン</Link>
+                )}
             </div>
 
             <h2 className="mypage-title">マイページ</h2>
