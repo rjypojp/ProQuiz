@@ -41,7 +41,7 @@ function QuestionList({ user, setUser }) {
                 ?.split('=')[1] || ''
         );
 
-        await fetch('http://localhost:8000/logout', {
+        await fetch('http://localhost:8080/logout', {
             method: 'POST',
             headers: {
                 'X-XSRF-TOKEN': xsrfToken,
@@ -199,7 +199,7 @@ function QuestionList({ user, setUser }) {
                     className="start-button"
                     disabled={!isComprehensiveTest && (category === null || quizMode === null)}
                     onClick={async () => {
-                        await fetch("http://localhost:8000/sanctum/csrf-cookie",{
+                        await fetch("http://localhost:8080/sanctum/csrf-cookie",{
                             credentials: "include",
                         });
 
@@ -213,12 +213,12 @@ function QuestionList({ user, setUser }) {
                         setCurrentQuestionIndex(0);
                         setSelectedChoice(null);
                         if (isComprehensiveTest) {
-                            fetch("http://127.0.0.1:8000/api/comprehensive_test")
+                            fetch("http://127.0.0.1:8080/api/comprehensive_test")
                                 .then(response => response.json())
                                 .then(data => {
                                     setQuestions(data);
 
-                                    fetch("http://localhost:8000/api/quiz-results", {
+                                    fetch("http://localhost:8080/api/quiz-results", {
                                         method: "POST",
                                         credentials: "include",
                                         headers: {
@@ -240,7 +240,7 @@ function QuestionList({ user, setUser }) {
                                     });
                                 });
                         } else {
-                           fetch(`http://127.0.0.1:8000/api/questions/${category}`)
+                           fetch(`http://127.0.0.1:8080/api/questions/${category}`)
                             .then(response => response.json())
                             .then(data => {
 
@@ -252,7 +252,7 @@ function QuestionList({ user, setUser }) {
 
                                 setQuestions(data);
 
-                                fetch("http://localhost:8000/api/quiz-results", {
+                                fetch("http://localhost:8080/api/quiz-results", {
                                     method: "POST",
                                     credentials: "include",
                                     headers: {
@@ -307,7 +307,7 @@ function QuestionList({ user, setUser }) {
 
                         if (isComprehensiveTest) {
                             const response = await fetch(
-                                "http://127.0.0.1:8000/api/comprehensive_test"
+                                "http://127.0.0.1:8080/api/comprehensive_test"
                             );
 
                             const data = await response.json();
@@ -322,7 +322,7 @@ function QuestionList({ user, setUser }) {
                             );
 
                             const resultResponse = await fetch(
-                                "http://localhost:8000/api/quiz-results",
+                                "http://localhost:8080/api/quiz-results",
                                 {
                                     method: "POST",
                                     credentials: "include",
@@ -443,7 +443,7 @@ function QuestionList({ user, setUser }) {
                                         ?.split('=')[1] || ''
                                 );
 
-                                fetch("http://localhost:8000/api/answer-histories", {
+                                fetch("http://localhost:8080/api/answer-histories", {
                                     method: "POST",
                                     credentials: "include",
                                     headers: {
@@ -484,7 +484,7 @@ function QuestionList({ user, setUser }) {
                                             ?.split('=')[1] || ''
                                     )
                                     
-                                    fetch(`http://localhost:8000/api/quiz-results/${quizResultId}`, {
+                                    fetch(`http://localhost:8080/api/quiz-results/${quizResultId}`, {
                                         method: "PUT",
                                         credentials: "include",
                                         headers: {
