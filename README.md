@@ -4,8 +4,7 @@
 
 ProQuizは、プログラミングやITに関する知識をクイズ形式で学習できるWebアプリです。
 
-Python・PHP・SQL・Git・Dockerの5カテゴリに対応しており、
-通常クイズ、ランダムクイズ、総合テストから学習方法を選択できます。
+Python・PHP・SQL・Git・Dockerの5カテゴリに対応しており、通常クイズ、ランダムクイズ、総合テストから学習方法を選択できます。
 
 ユーザー登録・ログイン機能やクイズ結果の保存、マイページでの学習履歴確認にも対応しています。
 
@@ -32,7 +31,7 @@ Python・PHP・SQL・Git・Dockerの5カテゴリに対応しており、
 | データベース  | MySQL                             |
 | 認証      | Laravel Fortify / Laravel Sanctum |
 | CI      | GitHub Actions                    |
-| 開発環境    | XAMPP                             |
+| 開発環境    | Docker / XAMPP                    |
 | バージョン管理 | Git / GitHub                      |
 
 ## 画面
@@ -58,10 +57,13 @@ Python・PHP・SQL・Git・Dockerの5カテゴリに対応しており、
 * Laravel Fortify / Sanctumを使用した認証
 * クイズ問題・選択肢をSeederで管理
 * 楽しく勉強できるようにレトロポップをイメージしたデザインに
+* Dockerを利用してバックエンドの実行環境を構築
 
 ## テスト
 
-* 実際に各カテゴリ・各クイズモードを操作し、クイズの出題・回答・結果保存・マイページへの反映などの動作を確認しました。
+各カテゴリ・各クイズモードを実際に操作し、クイズの出題・回答・結果保存・マイページへの反映などの動作を確認しました。
+
+また、GitHubからリポジトリを新しくcloneし、Dockerを使用した環境でもバックエンドAPIとクイズが正常に動作することを確認しています。
 
 ## セットアップ
 
@@ -73,63 +75,75 @@ Python・PHP・SQL・Git・Dockerの5カテゴリに対応しており、
 * Node.js 24.18.0
 * npm 11.16.0
 * MySQL
+* Docker Desktop
 
 ### 1. リポジトリを取得
 
 ```bash
-git clone <GitHubリポジトリのURL>
+git clone https://github.com/rjypojp/ProQuiz.git
+
 cd ProQuiz
 ```
 
-### 2. Backendのセットアップ
+### 2. MySQLの準備
+
+MySQLを起動し、`proquiz` データベースを作成します。
+
+XAMPPを使用する場合は、XAMPPのMySQLを起動してください。
+
+データベース名：
+
+```text
+proquiz
+```
+
+### 3. Backendのセットアップ
+
+BackendのDockerイメージを作成します。
 
 ```bash
 cd backend
-composer install
-copy .env.example .env
-php artisan key:generate
+
+docker build -t proquiz-backend .
 ```
 
-`.env` のデータベース設定を確認します。
+Dockerコンテナを起動します。
+
+```bash
+docker run -d -p 8080:80 --name proquiz-backend proquiz-backend
+```
+
+### 4. Laravelの環境設定
+
+コンテナ内で `.env` を作成します。
+
+```bash
+docker exec -it proquiz-backend sh -c "cp .env.example .env"
+```
+
+アプリケーションキーを生成します。
+
+```bash
+docker exec -it proquiz-backend php artisan key:generate
+```
+
+`.env` のデータベース設定を以下のようにします。
 
 ```env
 DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
+DB_HOST=host.docker.internal
 DB_PORT=3306
 DB_DATABASE=proquiz
 DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-MySQLで `proquiz` データベースを作成した後、マイグレーションとSeederを実行します。
+`host.docker.internal` は、DockerコンテナからホストOS上のMySQLへ接続するために使用します。
+
+### 5. データベースのセットアップ
+
+マイグレーションとSeederを実行します。
 
 ```bash
-php artisan migrate --seed
+docker exec -
 ```
-
-### 3. Frontendのセットアップ
-
-別のターミナルで、
-
-```bash
-cd frontend
-npm install
-```
-
-### 4. アプリケーションを起動
-
-Backend：
-
-```bash
-cd backend
-php artisan serve
-```
-
-Frontend：
-
-```bash
-cd frontend
-npm run dev
-```
-
-ブラウザで表示されたFrontendのURLにアクセスします。
