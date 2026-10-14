@@ -1,6 +1,6 @@
 services:
   backend:
-    restart: unless-stopped
+    restart: undless-stopped
     build: .
     container_name: proquiz-test
     ports:
