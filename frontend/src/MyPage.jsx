@@ -30,7 +30,7 @@ function MyPage({ user, setUser }) {
                 ?.split('=')[1] || ''
         )
 
-        await fetch('http://localhost:8000/logout', {
+        await fetch('http://localhost:8081/logout', {
             method: 'POST',
             headers: {
                 'X-XSRF-TOKEN': xsrfToken,
@@ -47,28 +47,28 @@ function MyPage({ user, setUser }) {
     useEffect(() => {
 
         const getQuizResults = async () => {
-            const response = await fetch('http://localhost:8000/logout', {
-                method: 'POST',
-                headers: {
-                    'X-XSRF-TOKEN': xsrfToken,
-                },
-                credentials: 'include',
-                redirect:'manual',
-            })
+            try {
+                const response = await fetch('http://localhost:8081/api/quiz-results/my', {
+                    credentials: 'include',
+                    headers: {'Accept': 'application/json'},
+                })
 
-            const data = await response.json()
-            console.log(data.map(result => ({
-                id: result.id,
-                category_id: result.category_id,
-                mode: result.mode,
-            })))
-            setAllQuizResults(data)
+                if (!response.ok) {
+                    console.log('結果の取得に失敗:', response.status)
+                    return
+                }
 
-            setQuizResults(
-                data
-                    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-                    .slice(0, 30)
-            )
+                const data = await response.json()
+                setAllQuizResults(data)
+
+                setQuizResults(
+                    [...data]
+                        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                        .slice(0, 30)
+                )
+            } catch (e) {
+                console.log('通信エラー:', e)
+            }
         }
 
         getQuizResults()
@@ -84,7 +84,7 @@ function MyPage({ user, setUser }) {
         return total + result.correct_count
     }, 0)
 
-    const averageAccuracy = Math.round(totalCorrect / answeredCount * 100)
+    const averageAccuracy = answeredCount === 0 ? 0 : Math.round(totalCorrect / answeredCount * 100)
 
     const bestScores = {}
 

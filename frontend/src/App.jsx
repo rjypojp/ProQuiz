@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     const checkLogin = async () => {
-      const response = await fetch('http://localhost:8080/api/user', {
+      const response = await fetch('http://localhost:8081/api/user', {
         credentials: 'include',
       })
 

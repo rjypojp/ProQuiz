@@ -29,7 +29,6 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
-        Log::info('Before User::create');
 
         $user = User::create([
             'name' => $input['name'],

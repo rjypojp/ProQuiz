@@ -6,7 +6,7 @@ function Register() {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const handleRegister = async () => {
-        await fetch("http://localhost:8000/sanctum/csrf-cookie", {
+        await fetch("http://localhost:8081/sanctum/csrf-cookie", {
             credentials: "include",
         });
 
@@ -17,7 +17,7 @@ function Register() {
                 ?.split("=")[1] || ""
         );
 
-        const response = await fetch("http://localhost:8000/register", {
+        const response = await fetch("http://localhost:8081/register", {
             method: "POST",
             credentials: "include",
             headers: {

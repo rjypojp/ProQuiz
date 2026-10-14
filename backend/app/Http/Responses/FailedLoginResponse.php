@@ -2,7 +2,7 @@
 
 namespace App\Http\Responses;
 
-use Laravel\Fortify\Contracts\FailedLoginResponse as FailesLoginResponseContract;
+use Laravel\Fortify\Contracts\FailedLoginResponse as FailedLoginResponseContract;
 
 class FailedLoginResponse implements FailedLoginResponseContract
 {

@@ -15,9 +15,7 @@ use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Fortify;
 use App\Http\Responses\LoginResponse;
-use App\Http\Responses\FailedLoginResponse;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
-use Laravel\Fortify\Contracts\FailedLoginResponse as FailedLoginResponseContract;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -35,12 +33,8 @@ class FortifyServiceProvider extends ServiceProvider
             }
         });
 
+        // ログイン成功時のレスポンスを登録
         $this->app->singleton(LoginResponseContract::class, LoginResponse::class);
-
-        $this->app->singleton(
-            FailedLoginResponseContract::class,
-            FailedLoginResponse::class
-        );
     }
 
     /**

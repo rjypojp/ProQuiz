@@ -1,0 +1,13 @@
+services:
+  backend:
+    restart: unless-stopped
+    build: .
+    container_name: proquiz-test
+    ports:
+      - "8081:80"
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/vendor
+    environment:
+      DB_HOST: host.docker.internal
+      SANCTUM_STATEFUL_DOMAINS: localhost:5173

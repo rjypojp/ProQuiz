@@ -23,11 +23,9 @@ function Home() {
         ]
 
         const handleKeyDown = (event) => {
-            console.log('Home key:', event.key)
             keys.push(event.key)
             keys.splice(0, keys.length - 10)
             if(keys.length === 10 && keys.join() === konamiCode.join()) {
-                console.log('コナミコマンド成功！')
                 setIsSpinning(true)
 
                 setTimeout(() => {

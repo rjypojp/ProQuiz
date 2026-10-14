@@ -11,7 +11,7 @@ function Login({ user, setUser }) {
   const handleLogin = async () => {
     setLoginError('')
 
-    await fetch('http://localhost:8000/sanctum/csrf-cookie', {
+    await fetch('http://localhost:8081/sanctum/csrf-cookie', {
       credentials: 'include',
     })
 
@@ -22,7 +22,9 @@ function Login({ user, setUser }) {
           ?.split('=')[1] || ''
     )
 
-    const response = await fetch('http://localhost:8000/login', {
+    console.log('送信するユーザー名:', name)
+    console.log('パスワードが入力されているか：', password.length > 0)
+    const response = await fetch('http://localhost:8081/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,22 +39,23 @@ function Login({ user, setUser }) {
       }),
     })
 
-    console.log(response.status)
+    console.log('ログインのステータス:', response.status)
+    console.log('ログイン後のURL：', response.url)
 
     if (!response.ok) {
+      const errorData = await response.json()
+      console.log('ログインエラーの詳細：', errorData)
       setLoginError('ユーザー名またはパスワードが違います。')
-      console.log('ログイン失敗')
       return
     }
 
-    const userResponse = await fetch('http://localhost:8000/api/user', {
+    const userResponse = await fetch('http://localhost:8081/api/user', {
         credentials: 'include',
     })
 
     const userData = await userResponse.json()
 
     setUser(userData)
-    console.log(userData)
 }
   const handleLogout = async () => {
     
@@ -63,7 +66,7 @@ function Login({ user, setUser }) {
         ?.split('=')[1] || ''
     )
 
-    const response = await fetch('http://localhost:8000/logout', {
+    const response = await fetch('http://localhost:8081/logout', {
       method: 'POST',
       headers: {
         'X-XSRF-TOKEN': xsrfToken,
